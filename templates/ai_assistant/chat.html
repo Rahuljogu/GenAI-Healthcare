@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="chat-container fade-in-up">
+  <div class="chat-header">
+    <h2 class=" text-white">🧠 AI Medical Assistant</h2>
+    <p class="text-muted">Ask medical questions powered by Gemini 2.5</p>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    {% if user_prompt and response %}
+    <div class="message-group">
+      <div class="message user-message fade-in-up">
+        <div class="message-content">{{ user_prompt }}</div>
+      </div>
+      <div class="message ai-message fade-in-up" style="animation-delay: 0.2s;">
+        <div class="message-content">{{ response }}</div>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty-state float">
+      <div class="empty-icon">💭</div>
+      <p>Start a conversation with your AI Medical Assistant</p>
+      <small>Ask any medical-related questions and get instant assistance</small>
+    </div>
+    {% endif %}
+  </div>
+
+  <form method="post" class="chat-form">
+    {% csrf_token %}
+    <div class="input-group">
+      <textarea name="prompt" class="form-control chat-input" rows="1" placeholder="Ask a medical question..." required></textarea>
+      <button type="submit" class="btn btn-primary send-btn">✈️ Send</button>
+    </div>
+  </form>
+</div>
+
+<style>
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+  max-width: 1000px;
+  position: relative;
+}
+
+.chat-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  animation: shimmer 3s infinite;
+}
+
+.chat-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+
+.chat-header h2 {
+  margin: 0 0 10px 0;
+  font-size: 32px;
+  font-weight: 700;
+  animation: slideInDown 0.6s ease;
+}
+
+.chat-header p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+  animation: slideInDown 0.6s ease 0.1s both;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scroll-behavior: smooth;
+}
+
+.message-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  display: flex;
+  animation: slideIn 0.4s ease;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 16px 20px;
+  border-radius: 18px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  font-size: 14px;
+  animation: scaleIn 0.3s ease;
+}
+
+.user-message .message-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.ai-message .message-content {
+  background: white;
+  color: #333;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid #667eea;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 30px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state p {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: #667eea;
+}
+
+.empty-state small {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.chat-form {
+  padding: 25px 30px;
+  background: white;
+  border-top: 2px solid #e0e0e0;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.chat-input {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: inherit;
+  resize: none;
+  transition: all 0.3s ease;
+  max-height: 100px;
+}
+
+.chat-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  outline: none;
+}
+
+.send-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  white-space: nowrap;
+}
+
+.send-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.send-btn:active {
+  transform: translateY(-1px);
+}
+</style>
+{% endblock %}

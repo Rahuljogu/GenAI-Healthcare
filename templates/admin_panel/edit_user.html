@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Edit User</h4>
+<form method="post">{% csrf_token %}
+  <input type="text" name="username" class="form-control mb-2" value="{{ user_obj.username }}" required>
+  <input type="email" name="email" class="form-control mb-2" value="{{ user_obj.email }}" required>
+  <div class="form-check mb-2">
+    <input type="checkbox" name="is_active" class="form-check-input" {% if user_obj.is_active %}checked{% endif %}>
+    <label class="form-check-label">Active</label>
+  </div>
+  <button class="btn btn-success">Save Changes</button>
+  <a href="{% url 'user_management' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-3">👥 User Management</h3>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Date Joined</th>
+        <th>Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+                <td>
+          {% if user.is_active %}
+            ✅ Verified
+          {% else %}
+            ❌ Unverified
+          {% endif %}
+        </td>
+        <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+        <td>
+  <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-warning">Edit</a>
+  <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Delete user?')">Delete</a>
+</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

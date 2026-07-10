@@ -1,0 +1,538 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content fade-in-up">
+      <h1 class="hero-title"> Your AI-Powered Healthcare Companion</h1>
+      <p class="hero-subtitle">Get instant medical insights powered by advanced AI technology</p>
+      
+      {% if not request.user.is_authenticated %}
+      <div class="hero-buttons">
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg hero-btn">
+          🔐 Login to Your Account
+        </a>
+        <a href="{% url 'register' %}" class="btn btn-secondary btn-lg hero-btn">
+          📝 Create New Account
+        </a>
+      </div>
+      {% else %}
+      <div class="hero-buttons">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg hero-btn">
+          🚀 Go to Dashboard
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="hero-image">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2 class="section-title">Why Choose GenAI Healthcare?</h2>
+    <div class="features-container">
+      <div class="feature-item fade-in-up" style="animation-delay: 0.1s;">
+        <div class="feature-icon">🧠</div>
+        <h3>AI Assistant</h3>
+        <p>Ask any medical question and get intelligent, evidence-based responses powered by Gemini AI</p>
+        <div class="feature-highlight">Advanced AI Technology</div>
+      </div>
+
+      <div class="feature-item fade-in-up" style="animation-delay: 0.2s;">
+        <div class="feature-icon">🩺</div>
+        <h3>Symptom Checker</h3>
+        <p>Analyze your symptoms and receive personalized health insights and recommendations</p>
+        <div class="feature-highlight">Health Analysis</div>
+      </div>
+
+      <div class="feature-item fade-in-up" style="animation-delay: 0.3s;">
+        <div class="feature-icon">💊</div>
+        <h3>Drug Information</h3>
+        <p>Get detailed information about medications, treatments, and their uses</p>
+        <div class="feature-highlight">Drug Database</div>
+      </div>
+
+      <div class="feature-item fade-in-up" style="animation-delay: 0.4s;">
+        <div class="feature-icon">⚡</div>
+        <h3>Instant Results</h3>
+        <p>Get responses within seconds with our fast and reliable AI infrastructure</p>
+        <div class="feature-highlight">Real-time Processing</div>
+      </div>
+
+      <div class="feature-item fade-in-up" style="animation-delay: 0.5s;">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure & Private</h3>
+        <p>Your health data is protected with enterprise-grade security measures</p>
+        <div class="feature-highlight">Data Protection</div>
+      </div>
+
+      <div class="feature-item fade-in-up" style="animation-delay: 0.6s;">
+        <div class="feature-icon">📱</div>
+        <h3>Easy to Use</h3>
+        <p>Clean, intuitive interface designed for healthcare professionals and patients</p>
+        <div class="feature-highlight">User-Friendly</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item fade-in-up">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-item fade-in-up" style="animation-delay: 0.1s;">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Queries Answered</div>
+      </div>
+      <div class="stat-item fade-in-up" style="animation-delay: 0.2s;">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Available Support</div>
+      </div>
+      <div class="stat-item fade-in-up" style="animation-delay: 0.3s;">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Uptime SLA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content fade-in-up">
+      <h2>Ready to Transform Your Healthcare Experience?</h2>
+      <p>Join thousands of users who trust GenAI Healthcare for medical insights</p>
+      
+      {% if not request.user.is_authenticated %}
+      <div class="cta-buttons">
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg cta-btn">
+          Get Started Now
+        </a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg cta-btn cta-btn-outline">
+          Already have an account? Sign In
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+<style>
+.landing-page {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-content {
+  max-width: 600px;
+  z-index: 2;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.hero-btn {
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+
+.hero-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+}
+
+.hero-image {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  z-index: 1;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  top: 20%;
+  right: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-2 {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  bottom: 20%;
+  right: 100px;
+  animation: float 8s ease-in-out infinite 1s;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  bottom: 30%;
+  right: 250px;
+  animation: float 7s ease-in-out infinite 2s;
+}
+
+/* Features Section */
+.features-section {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 70px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.feature-item {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.feature-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  display: block;
+  animation: rotateIn 0.6s ease;
+}
+
+.feature-item h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.feature-item p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.feature-highlight {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Stats Section */
+.stats-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 80px 40px;
+  color: white;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stat-item {
+  animation: fadeInUp 0.6s ease;
+}
+
+.stat-number {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  animation: scaleIn 0.6s ease;
+}
+
+.stat-label {
+  font-size: 14px;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 120px 40px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+.cta-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInUp 0.6s ease;
+}
+
+.cta-section h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-section p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 14px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+.cta-btn-outline {
+  border: 2px solid #667eea;
+  color: #667eea;
+  background: transparent;
+}
+
+.cta-btn-outline:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-20deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding: 40px 20px;
+    flex-direction: column;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-image {
+    position: static;
+    width: 100%;
+    height: 300px;
+    margin-top: 40px;
+    transform: none;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .features-section {
+    padding: 60px 20px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 50px;
+  }
+
+  .stats-section {
+    padding: 60px 20px;
+  }
+
+  .stat-number {
+    font-size: 32px;
+  }
+
+  .cta-section {
+    padding: 60px 20px;
+  }
+
+  .cta-section h2 {
+    font-size: 28px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .cta-btn {
+    width: 100%;
+  }
+}
+</style>
+{% endblock %}

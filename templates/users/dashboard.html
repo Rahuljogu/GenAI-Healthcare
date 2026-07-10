@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-container">
+  <div class="welcome-section fade-in-up">
+    <h1>Welcome back, <span class="user-name gradient-text">{{ request.user.username }}</span>! 👋</h1>
+    <p class="welcome-subtitle">Your personal AI-powered healthcare companion</p>
+  </div>
+
+  <div class="features-grid">
+    <a href="{% url 'ai_chat' %}" class="feature-card feature-card-1 fade-in-up" style="animation-delay: 0.1s;">
+      <div class="feature-badge">AI Powered</div>
+      <div class="feature-icon">🧠</div>
+      <h3>AI Assistant</h3>
+      <p>Ask medical questions and get instant AI-powered responses</p>
+      <div class="feature-arrow">→</div>
+    </a>
+
+    <a href="{% url 'symptom_checker' %}" class="feature-card feature-card-2 fade-in-up" style="animation-delay: 0.2s;">
+      <div class="feature-badge">Health Check</div>
+      <div class="feature-icon">🩺</div>
+      <h3>Symptom Checker</h3>
+      <p>Analyze your symptoms and get personalized health insights</p>
+      <div class="feature-arrow">→</div>
+    </a>
+
+    <a href="{% url 'drug_info' %}" class="feature-card feature-card-3 fade-in-up" style="animation-delay: 0.3s;">
+      <div class="feature-badge">Medical Info</div>
+      <div class="feature-icon">💊</div>
+      <h3>Drug Information</h3>
+      <p>Get detailed information about medications and treatments</p>
+      <div class="feature-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="info-section">
+    <div class="info-box fade-in-up">
+      <h4>💡 Quick Tips</h4>
+      <ul>
+        <li>Use the AI Assistant for general medical questions</li>
+        <li>The Symptom Checker helps analyze your health concerns</li>
+        <li>Check drug information before taking any medication</li>
+        <li>Always consult with a healthcare professional for diagnosis</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInUp 0.6s ease;
+}
+
+.welcome-section h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.user-name {
+  display: inline;
+}
+
+.welcome-subtitle {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+  animation: slideInUp 0.6s ease 0.1s both;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 35px;
+  margin-bottom: 60px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 18px;
+  padding: 40px 25px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  animation: shimmer 3s infinite;
+}
+
+.feature-card-1::before {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.feature-card-2::before {
+  background: linear-gradient(90deg, #f093fb, #f5576c);
+}
+
+.feature-card-3::before {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+}
+
+.feature-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.feature-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  animation: float 3s ease-in-out infinite;
+}
+
+.feature-icon {
+  font-size: 60px;
+  margin-bottom: 15px;
+  display: inline-block;
+  animation: rotateIn 0.6s ease;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 15px 0;
+  color: #333;
+}
+
+.feature-card p {
+  color: #666;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+  line-height: 1.7;
+  flex-grow: 1;
+}
+
+.feature-arrow {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 28px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  color: #667eea;
+}
+
+.feature-card:hover .feature-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.info-section {
+  margin-top: 60px;
+}
+
+.info-box {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  border-radius: 18px;
+  padding: 40px;
+  border-left: 5px solid;
+  border-image: linear-gradient(180deg, #667eea, #764ba2) 1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  animation: slideInUp 0.6s ease;
+}
+
+.info-box h4 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-box li {
+  padding: 12px 0;
+  color: #555;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  padding-left: 30px;
+  font-size: 15px;
+  line-height: 1.6;
+  animation: slideInUp 0.6s ease;
+}
+
+.info-box li:last-child {
+  border-bottom: none;
+}
+
+.info-box li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.info-box li:hover {
+  color: #667eea;
+  padding-left: 35px;
+  transition: all 0.2s ease;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-20deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px 10px;
+  }
+
+  .welcome-section h1 {
+    font-size: 32px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .info-box {
+    padding: 25px;
+  }
+
+  .info-box h4 {
+    font-size: 18px;
+  }
+}
+</style>
+{% endblock %}

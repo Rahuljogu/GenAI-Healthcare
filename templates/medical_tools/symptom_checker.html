@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="tool-container symptom-container">
+  <div class="tool-header">
+    <h2>🩺 Symptom Checker</h2>
+    <p class="text-muted">Describe your symptoms and get AI-powered health insights</p>
+  </div>
+
+  <form method="post" class="tool-form">
+    {% csrf_token %}
+    <div class="input-section">
+      <label for="symptoms" class="form-label">Enter Your Symptoms</label>
+      <textarea name="symptoms" id="symptoms" rows="5" class="form-control tool-input" placeholder="e.g., fever, cough, headache, sore throat..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg w-100">🔍 Analyze Symptoms</button>
+  </form>
+
+  {% if symptoms and response %}
+  <div class="results-section fade-in">
+    <div class="result-card input-card">
+      <div class="result-label">📝 Your Symptoms</div>
+      <div class="result-content">{{ symptoms }}</div>
+    </div>
+    <div class="result-card recommendation-card">
+      <div class="result-label">💡 AI Analysis</div>
+      <div class="result-content">{{ response }}</div>
+    </div>
+    <div class="warning-box">
+      <strong>⚠️ Important Disclaimer</strong>
+      <p>This analysis is for informational purposes only and should not be used as a substitute for professional medical advice. Always consult with a qualified healthcare professional for proper diagnosis and treatment.</p>
+    </div>
+  </div>
+  {% else %}
+  <div class="empty-state-tool">
+    <div>🏥</div>
+    <p>Describe your symptoms to get AI-powered insights</p>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+.tool-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 40px;
+  border-radius: 15px;
+  color: white;
+}
+
+.tool-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.tool-header .text-muted {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+}
+
+.tool-form {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.tool-input {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 14px;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.tool-input:focus {
+  border-color: #f093fb;
+  box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.1);
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+.result-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid;
+}
+
+.input-card {
+  border-left-color: #f093fb;
+}
+
+.recommendation-card {
+  border-left-color: #f5576c;
+}
+
+.result-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.result-content {
+  color: #333;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.warning-box {
+  background: linear-gradient(135deg, #fff5e1 0%, #ffe8cc 100%);
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  padding: 20px;
+  color: #8b6914;
+}
+
+.warning-box strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.warning-box p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.empty-state-tool {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state-tool > div {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.empty-state-tool p {
+  font-size: 16px;
+  color: #bbb;
+}
+</style>
+{% endblock %}
